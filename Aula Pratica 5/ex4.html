@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aula Pratica 5 - Exercicio 4</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      .square {
+        width: 120px;
+        height: 120px;
+        line-height: 120px;
+        display: inline-block;
+        text-align: center;
+        border: solid 1px black;
+      }
+      .vermelho {
+        background-color: red;
+        position: relative;
+      }
+      .verde {
+        background-color: green;
+        position: relative;
+      }
+      .azul {
+        background-color: blue;
+        position: relative;
+      }
+      .amarelo {
+        background-color: yellow;
+        position: relative;
+      }
+      button {
+        display: block;
+        margin-left: 20px;
+      }
+      #currentInfo {
+        position: absolute;
+        z-index: 1;
+        margin-left: 20px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>O meu joguinho... 😊</h1>
+    <div class="leftSpace">
+      <button onclick="shuffle()">Baralhar</button>
+      <span id="currentInfo"></span>
+    </div>
+    <div
+      class="square vermelho"
+      onmouseover="setCurrentDiv(this)"
+      onmouseout="clearSelected(this)"
+    ></div>
+    <div
+      class="square verde"
+      onmouseover="setCurrentDiv(this)"
+      onmouseout="clearSelected(this)"
+    ></div>
+    <div
+      class="square azul"
+      onmouseover="setCurrentDiv(this)"
+      onmouseout="clearSelected(this)"
+    ></div>
+    <div
+      class="square amarelo"
+      onmouseover="setCurrentDiv(this)"
+      onmouseout="clearSelected(this)"
+    ></div>
+    <script src="js/ex4.js"></script>
+  </body>
+</html>
