@@ -1,0 +1,22 @@
+﻿body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.jumbotron {
+  background-image: url('banner.jpg');
+  background-size: cover;
+  height: 40vh;
+}
+
+.table th {
+  border-top: none;
+}
+
+hr {
+  border: 0;
+  clear: both;
+  display: block;
+  width: 96%;
+  background-color: #cecece;
+  height: 1px;
+}

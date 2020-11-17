@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+  width: 95%;
+  margin: auto;
+}
+
+nav {
+  height: 5vh;
+  /* background-color: blue; */
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+nav li {
+  float: left;
+  border-right: 1px solid #bbb;
+}
+
+nav li:last-child {
+  border-right: none;
+  float: right;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav li a:hover:not(.active) {
+  background-color: #444;
+}
+
+nav li a.active:hover {
+  color: #444;
+}
+
+nav .active {
+  background-color: #5CAF50;
+}
+
+.banner {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  height: 95vh;
+  background: url('../img/banner.png') no-repeat center center;
+  background-size: cover
+}
+
+main .container {
+  min-height: 95vh;
+  display: flex;
+}
+
+.content {
+  /* background-color: pink; */
+  width: 75%;
+  height: 100%;
+}
+
+.ads {
+  background-color: yellow;
+  width: 25%;
+  height: 100%;
+  min-height: 95vh;
+}
+
+footer {
+  padding: 5px 0;
+  /* background-color: greenyellow; */
+  border-top: 1px solid lightslategray;
+  color: lightslategray;
+  height: 5vh;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aula Pratica 5 - Exercicio 3</title>
+    <style>
+      body {
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+      #bulb {
+        align-self: center;
+        max-width: 300px;
+      }
+      .btns {
+        margin-top: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Exercicio 3 - brincando com imagens...</h1>
+    <img id="bulb" src="img/light-off.svg" />
+    <div class="btns">
+      <button onclick="turnOn()">Ligar</button>
+      <button onclick="turnOff()">Desligar</button>
+    </div>
+    <script src="js/ex3.js"></script>
+  </body>
+</html>

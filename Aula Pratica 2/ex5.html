@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aula Pratica 2 - Exercicio 5</title>
+    <link rel="stylesheet" href="css/ex5.css" />
+  </head>
+  <body>
+    <h1>Informação Pessoal</h1>
+    <form
+      name="PersonData"
+      action="http://192.168.160.36/FormEcho.aspx"
+      method="post"
+    >
+      <input type="hidden" name="FormName" value="UserForm" />
+      <fieldset>
+        <legend>Informação Pessoal</legend>
+        <div>
+          <label for="Curso">Curso</label>
+          <select name="Curso" id="Curso">
+            <option value="1">Licenciatura em Engenharia Informática</option>
+            <option value="2">
+              Mestrado Integrado em Engenharia de Computadores e Telemática
+            </option>
+            <option value="3">
+              Mestrado Integrado em Engenharia Eletrónica e Telecomunicações
+            </option>
+            <option value="4">Outro</option>
+          </select>
+        </div>
+        <div>
+          <label for="FirstName">Nome:</label>
+          <input
+            id="FirstName"
+            type="text"
+            name="FirstName"
+            value="Joaquim"
+            placeholder="Nome"
+          />
+        </div>
+        <div>
+          <label for="LastName">Sobrenome</label>
+          <input
+            id="LastName"
+            type="text"
+            name="LastName"
+            placeholder="Sobrenome"
+          />
+        </div>
+        <div>
+          <label for="Password">Palavra-Passe:</label>
+          <input
+            id="Password"
+            type="password"
+            name="Password"
+            placeholder="Digite a palavra passe"
+          />
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Comentários</legend>
+        <label for="Comments" hidden>Comentários</label>
+        <textarea
+          id="Comments"
+          name="Comments"
+          rows="4"
+          cols="80"
+          placeholder="Insira os seus comentários"
+        ></textarea>
+      </fieldset>
+      <div>
+        <div class="col-md-6">
+          <fieldset>
+            <legend>Meios de Transporte</legend>
+            <div>
+              <input type="checkbox" name="Bike" id="Bike" />
+              <label for="Bike">Bicicleta</label>
+            </div>
+            <div>
+              <input type="checkbox" name="Car" id="Car" />
+              <label for="Car">Carro</label>
+            </div>
+            <div>
+              <input type="checkbox" name="Train" id="Train" />
+              <label for="Train">Comboio</label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="col-md-6">
+          <fieldset>
+            <legend>Cor preferida</legend>
+            <div>
+              <input type="radio" name="Blue" id="Blue" />
+              <label for="Blue">Azul</label>
+            </div>
+            <div>
+              <input type="radio" name="Green" id="Green" />
+              <label for="Green">Verde</label>
+            </div>
+            <div>
+              <input type="radio" name="Red" id="Red" />
+              <label for="Red">Vermelho</label>
+            </div>
+            <div>
+              <input type="radio" name="Other" id="Other" />
+              <label for="Other">Outro</label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="btns">
+        <input name="Button" type="Submit" />
+        <input type="reset" name="resetBtn" value="Reset" />
+      </div>
+    </form>
+  </body>
+</html>
