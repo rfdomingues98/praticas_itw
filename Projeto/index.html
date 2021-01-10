@@ -28,16 +28,19 @@
     </div>
     <ul class="main-nav" id="js-menu">
       <li>
-        <a href="#" class="nav-links">Home</a>
+        <button class="theme-changer"><i class="icon-moon" aria-hidden="true"></i></button>
       </li>
       <li>
-        <a href="#" class="nav-links">Titles</a>
+        <a href="index.html" class="nav-links">Home</a>
       </li>
       <li>
-        <a href="#" class="nav-links">Directors</a>
+        <a href="titles.html" class="nav-links">Titles</a>
       </li>
       <li>
-        <a href="#" class="nav-links">Actors</a>
+        <a href="directors.html" class="nav-links">Directors</a>
+      </li>
+      <li>
+        <a href="actors.html" class="nav-links">Actors</a>
       </li>
     </ul>
   </nav>
@@ -47,72 +50,73 @@
       <h1 class="main-title">UAflix</h1>
       <p class="main-subtitle">A simplified Netflix API for ITW classes.</p>
     </div>
-    <i class="slide-down fa fa-2x fa-angle-down" aria-hidden="true"></i>
+    <i class="slide-down icon-2x icon-angle-down" aria-hidden="true"></i>
   </header>
 
   <main id="main">
-    <section id="Titles">
+    <section id="pages">
       <div class="container">
-        <h1 class="title" data-bind="text: displayName"></h1>
-        <div class="info">
-          <p class="main-info">
-            <span data-bind="html: 'Page: ' + currentPage() + ' of ' + totalPages()"></span><br />
-            <span data-bind="html: 'Titles: '+ fromRecord() + '-' + toRecord() + ' of ' + totalTitles()"></span>
-          </p>
-          <div class="row">
-            <form>
-              <input class="search-box" type="text" placeholder="Search..." required>
-              <button class="search-btn" value="Search"><i class="fa fa-search" aria-hidden="true"></i></button>
-            </form>
-            <ul class="pagination">
-              <!-- ko if: currentPage() > 5 && totalPages() > 10 -->
-              <li><a title="First Page" data-bind="attr: { href: './index.html?page=' + '1',  rel:'prev'}">First</a>
-              </li>
-              <li><a title="Previous Page"
-                  data-bind="attr: { href: './index.html?page=' + previousPage(),  rel:'prev'}">Prev</a></li>
-              <!-- /ko -->
-              <!-- ko foreach: pageArray()-->
-              <!-- ko if:$data == $parent.currentPage() -->
-              <li><a class="active" data-bind="attr: { title:'Current Page ' + $data }, text: $data"></a></li>
-              <!-- /ko -->
-              <!-- ko if:$data != $parent.currentPage() -->
-              <li><a
-                  data-bind="attr: { href: './index.html?page=' + $data, title:'Goto Page ' + $data }, text:$data"></a>
-              </li>
-              <!-- /ko -->
-              <!-- /ko -->
-              <!-- ko if: currentPage() < totalPages() - 4 && totalPages() > 9 -->
-              <li><a title="Next Page"
-                  data-bind="attr: { href: './index.html?page=' + nextPage(), rel:'next' }">Next</a>
-              </li>
-              <li><a title="Last Page" data-bind="attr: { href: './index.html?page=' + totalPages() }">Last</a></li>
-              <!-- /ko -->
-            </ul>
+        <div class="row">
+          <div class="col-12">
+            <span>We currently hold data of:</span>
           </div>
-          <table class="styled-table" width="1000">
-            <thead>
-              <tr>
-                <th width="150" style="text-align: left;">ID</th>
-                <th style="text-align: left;">Name</th>
-                <th style="text-align: right;">Options</th>
-              </tr>
-            </thead>
-            <tbody data-bind="foreach: titles">
-              <tr>
-                <td data-bind="text:Id"></td>
-                <td data-bind="text:Name"></td>
-                <td style="text-align: right;">
-                  <a class="detils-btn" data-bind="attr: { href:'./titleDetails.html?id=' + Id }">
-                    <i class="fa fa-eye" title="Selecione para ver detalhes"></i>
-                  </a>
-                  <button class="favs-btn">
-                    <i class="fa fa-heart-o" data-bind="attr : { 'id': 'favourite_'+Id }"
-                      title="Selecione para adicionar aos favoritos"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12" style="text-align: center;">
+            <span><span data-bind="text: titles"></span> Titles | <span data-bind="text: directors"></span> Directors |
+              <span data-bind="text: actors"></span> Actors | <span data-bind="text: categories"></span> Categories |
+              <span data-bind="text: countries"></span> Countries</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <a class="no-decoration" href="titles.html">
+              <div class="card d-flex align-items-center">
+                <div class="card-description">
+                  <h1>Titles</h1>
+                </div>
+                <div class="card-img">
+                  <i class="icon-3x icon-video"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6">
+            <a class="no-decoration" href="directors.html">
+              <div class="card d-flex align-items-center">
+                <div class="card-description">
+                  <h1>Directors</h1>
+                </div>
+                <div class="card-img">
+                  <i class="icon-3x icon-cinema"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6">
+            <a class="no-decoration" href="actors.html">
+              <div class="card d-flex align-items-center">
+                <div class="card-description">
+                  <h1>Actors</h1>
+                </div>
+                <div class="card-img">
+                  <i class="icon-3x icon-users"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6">
+            <a class="no-decoration" href="favorites.html">
+              <div class="card d-flex align-items-center">
+                <div class="card-description">
+                  <h1>Favorites</h1>
+                </div>
+                <div class="card-img">
+                  <i class="icon-3x icon-heart"></i>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -127,11 +131,10 @@
     </div>
   </main>
 
-  <script src="https://use.fontawesome.com/8b53d0bef9.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-  <script src="js/TitlesViewModel.js"></script>
   <script src="js/script.js"></script>
+  <script src="js/StatisticsViewModel.js"></script>
 </body>
 
 </html>

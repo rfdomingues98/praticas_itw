@@ -1,0 +1,17 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Open+Sans:300&display=swap');
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+}
+
+#carouselTop {
+  height: 50vh;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  object-position: center center;
+  height: 50vh;
+  width: 100%;
+}

@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap");
+@import "custom-glyph-font.css";
+@import "custom-glyph-font-codes.css";
+@import "custom-glyph-font-embedded.css";
+@import "custom-glyph-font-ie7-codes.css";
+@import "custom-glyph-font-ie7.css";
+@import "animation.css";
 
 :root {
   --primary: #6df3fd;
@@ -16,12 +22,12 @@
 
 ::-webkit-scrollbar {
   width: 10px;
-  background: var(--scrollbar-bg);
+  background-color: var(--scrollbar-bg);
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background: #6df3fd;
+  background: var(--primary);
 }
 
 ::-webkit-scollbar-thumb:hover {
@@ -29,12 +35,22 @@
 }
 
 a {
-  text-decoration: none;
   color: var(--primary);
 }
 
 a:hover {
   color: var(--primary-lighter);
+}
+
+.no-decoration {
+  text-decoration: none;
+}
+
+button {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 body {
@@ -45,6 +61,7 @@ body {
   background: var(--bg-color);
   font-family: "Montserrat", sans-serif;
   color: var(--primary);
+  max-width: 100vw;
 }
 
 header {
@@ -62,10 +79,6 @@ header {
   letter-spacing: 3px;
   font-size: 4em;
   margin: 0;
-}
-
-main {
-  min-height: 100vh;
 }
 
 .header-info {
@@ -97,45 +110,29 @@ main {
   }
 }
 
-#Titles .container {
-  padding-top: 80px;
-}
-
 #Titles .title {
   margin-bottom: 0;
 }
 
-#Titles .main-info {
+.main-info {
   font-size: 9pt;
 }
 
 /*! -------------------------------- Misc  --------------------------------*/
-
-/*! ---------- CONTAINER ---------- */
-
-.container {
-  padding: 0 15px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 1170px;
+.icon-2x {
+  font-size: 200%;
 }
 
-@media (min-width: 768px) {
-  .container {
-    width: 750px;
-  }
+.icon-3x {
+  font-size: 300%;
 }
 
-@media (min-width: 992px) {
-  .container {
-    width: 970px;
-  }
+.icon-4x {
+  font-size: 400%;
 }
 
-@media (min-width: 1200px) {
-  .container {
-    width: 1170px;
-  }
+.top-padding {
+  padding-top: 80px !important;
 }
 
 /*! ---------- NAVBAR ---------- */
@@ -300,9 +297,15 @@ main {
   }
 }
 
+.theme-changer {
+  font-size: 1rem;
+  color: var(--primary);
+}
+
 /*! ---------- TABLES ---------- */
 
 .styled-table {
+  overflow-x: scroll;
   width: 100%;
   border-collapse: collapse;
   margin: 25px 0;
@@ -347,6 +350,11 @@ main {
 }
 
 /*! ---------- SEARCH BAR ---------- */
+.search-form {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 .search-box {
   border-radius: 50px 0 0 50px;
   border: none;
@@ -377,7 +385,7 @@ main {
 
 .pagination {
   list-style: none;
-  display: inline-block;
+  display: flex;
   padding: 0;
   margin-top: 10px;
 }
@@ -434,6 +442,22 @@ main {
   border-color: var(--primary);
   color: var(--bg-color);
   background-color: var(--primary);
+}
+
+/*! ---------- CARDS ---------- */
+.card {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  min-height: 200px;
+  padding: 50px;
+}
+
+.card-description {
+  width: 70%;
+}
+
+.card-img {
+  width: 30%;
+  text-align: center;
 }
 
 /*! ---------- FOOTER ---------- */
@@ -493,4 +517,121 @@ footer {
   50% {
     transform: translateY(-25px);
   }
+}
+
+/*! ---------- CONTAINER ---------- */
+
+.container {
+  padding: 0 15px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1170px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+/*! ---------- GRID ---------- */
+.row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 20px;
+}
+
+.col-md-4 {
+  grid-column: span 12;
+}
+
+.col-md-6 {
+  grid-column: span 12;
+}
+
+.col-12 {
+  grid-column: span 12;
+}
+
+@media (min-width: 992px) {
+  .col-md-4 {
+    grid-column: span 4;
+  }
+
+  .col-md-6 {
+    grid-column: span 6;
+  }
+}
+
+.mx-1 {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.mx-2 {
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.mx-3 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.mb-1 {
+  margin-bottom: 10px;
+}
+
+.mb-2 {
+  margin-bottom: 15px;
+}
+
+.mb-3 {
+  margin-bottom: 20px;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+@media (min-width: 992px) {
+  .mr-lg-auto {
+    margin-right: auto;
+  }
+
+  .ml-lg-auto {
+    margin-left: auto;
+  }
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.overflow-auto {
+  overflow-x: auto;
 }

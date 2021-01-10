@@ -13,6 +13,12 @@ var selected2 = 0;
 
 //--- função ativada sempre que se carrega em qualquer das caixas
 function boxClicked() {
+  linhas = 0;
+  apostas = 1;
+  selected1 = 0;
+  selectedX = 0;
+  selected2 = 0;
+
   for (var i = 1; i <= bets; i++) {
     var apostasNaLinha = 1;
     var x = document.getElementById(`Jogo${i}_1`).checked;

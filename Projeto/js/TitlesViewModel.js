@@ -12,14 +12,14 @@ var vm = function () {
   self.titles = ko.observableArray([]);
   self.pageArray = function () {
     var list = [];
-    var size = Math.min(self.totalPages(), 9);
+    var size = Math.min(self.totalPages(), 5);
     var step;
-    if (size < 9 || self.currentPage() === 1) {
+    if (size < 5 || self.currentPage() === 1) {
       step = 0;
-    } else if (self.currentPage() >= self.totalPages() - 4) {
-      step = self.totalPages() - 9;
+    } else if (self.currentPage() >= self.totalPages() - 2) {
+      step = self.totalPages() - 5;
     } else {
-      step = Math.max(self.currentPage() - 5, 0);
+      step = Math.max(self.currentPage() - 3, 0);
     }
 
     for (var i = 1; i <= size; i++) list.push(i + step);
@@ -39,11 +39,9 @@ var vm = function () {
   }, self);
 
   self.activate = function (id) {
-    console.log("CALL: getTitle...");
     var composedUri =
       self.baseUri() + "?page=" + id + "&pageSize=" + self.pageSize();
     ajaxHelper(composedUri, "GET").done(function (data) {
-      console.log(data);
       hideLoading();
       self.titles(data.Titles);
       self.currentPage(data.CurrentPage);
