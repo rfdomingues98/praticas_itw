@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UAFlix - Projeto ITW 2020</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="manifest" href="img/site.webmanifest">
+  <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="img/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar hiding">
+    <div class="navbar-toggle" id="js-navbar-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <ul class="main-nav" id="js-menu">
+      <li>
+        <button class="theme-changer"><i class="icon-moon" aria-hidden="true"></i></button>
+      </li>
+      <li>
+        <a href="index.html" class="nav-links">Home</a>
+      </li>
+      <li>
+        <a href="titles.html" class="nav-links">Titles</a>
+      </li>
+      <li>
+        <a href="directors.html" class="nav-links">Directors</a>
+      </li>
+      <li>
+        <a href="actors.html" class="nav-links">Actors</a>
+      </li>
+    </ul>
+  </nav>
+
+  <main id="main">
+    <section id="DirectorDetails">
+      <div class="container top-padding">
+        <h1 data-bind="text: displayName"></h1>
+        <div style="overflow-x: auto;">
+          <h2 data-bind="text:name"></h2>
+          <table class="styled-table" width="1000">
+            <tbody valign="top" style="text-align: left;">
+              <tr>
+                <th>Titles:</th>
+                <td>
+                  <!-- ko foreach: titles -->
+                  <i class="icon-video"></i>
+                  <a data-bind="text: Name + '', attr: { href: './titleDetails.html?id=' + Id }"></a> (<span
+                    data-bind="text: Id"></span>)<br />
+                  <!-- /ko -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+    </section>
+    <footer>&copy; 2020</footer>
+
+    <div class=" modal">
+      <div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/DirectorsDetailsViewModel.js"></script>
+</body>
+
+</html>

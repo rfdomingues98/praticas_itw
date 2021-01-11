@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UAFlix - Projeto ITW 2020</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="manifest" href="img/site.webmanifest">
+  <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="img/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar hiding">
+    <div class="navbar-toggle" id="js-navbar-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <ul class="main-nav" id="js-menu">
+      <li>
+        <button class="theme-changer"><i class="icon-moon" aria-hidden="true"></i></button>
+      </li>
+      <li>
+        <a href="index.html" class="nav-links">Home</a>
+      </li>
+      <li>
+        <a href="titles.html" class="nav-links">Titles</a>
+      </li>
+      <li>
+        <a href="directors.html" class="nav-links">Directors</a>
+      </li>
+      <li>
+        <a href="actors.html" class="nav-links">Actors</a>
+      </li>
+    </ul>
+  </nav>
+
+  <main id="main">
+    <section id="Directors">
+      <div class="container top-padding">
+        <h1 class="title" data-bind="text: displayName"></h1>
+        <div class="info">
+          <p class="main-info">
+            <span data-bind="html: 'Page: ' + currentPage() + ' of ' + totalPages()"></span><br />
+            <span data-bind="html: 'Directors: '+ fromRecord() + '-' + toRecord() + ' of ' + totalDirectors()"></span>
+          </p>
+          <div class="row align-items-center">
+            <div class="col-md-6 mr-lg-auto">
+              <form class="search-form">
+                <input class="search-box" type="text" placeholder="Search..." required>
+                <button class="search-btn" value="Search"><i class="icon-search" aria-hidden="true"></i></button>
+              </form>
+            </div>
+            <div class="col-md-6 ml-lg-auto">
+              <ul class="pagination">
+                <!-- ko if: currentPage() > 3 && totalPages() > 6 -->
+                <li><a title="First Page" data-bind="attr: { href: './directors.html?page=' + '1',  rel:'prev'}"><i
+                      class="icon-angle-double-left" aria-hidden="true"></i></a>
+                </li>
+                <li><a title="Previous Page"
+                    data-bind="attr: { href: './directors.html?page=' + previousPage(),  rel:'prev'}"><i
+                      class="icon-angle-left" aria-hidden="true"></i></a></li>
+                <!-- /ko -->
+                <!-- ko foreach: pageArray()-->
+                <!-- ko if:$data == $parent.currentPage() -->
+                <li><a class="active" data-bind="attr: { title:'Current Page ' + $data }, text: $data"></a></li>
+                <!-- /ko -->
+                <!-- ko if:$data != $parent.currentPage() -->
+                <li><a
+                    data-bind="attr: { href: './directors.html?page=' + $data, title:'Goto Page ' + $data }, text:$data"></a>
+                </li>
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: currentPage() < totalPages() - 2 && totalPages() > 5 -->
+                <li><a title="Next Page"
+                    data-bind="attr: { href: './directors.html?page=' + nextPage(), rel:'next' }"><i
+                      class="icon-angle-right" aria-hidden="true"></i></a>
+                </li>
+                <li><a title="Last Page" data-bind="attr: { href: './directors.html?page=' + totalPages() }"><i
+                      class="icon-angle-double-right" aria-hidden="true"></i></a></li>
+                <!-- /ko -->
+              </ul>
+            </div>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="styled-table" width="1000">
+              <thead>
+                <tr>
+                  <th width="150" style="text-align: left;">ID</th>
+                  <th style="text-align: left;">Name</th>
+                  <th style="text-align: right;">Options</th>
+                </tr>
+              </thead>
+              <tbody data-bind="foreach: directors">
+                <tr>
+                  <td data-bind="text:Id"></td>
+                  <td><a class="detils-btn" data-bind="text:Name,attr: { href:'./directorDetails.html?id=' + Id }">
+                    </a></td>
+                  <td style="text-align: right;">
+                    <a class="detils-btn no-decoration" data-bind="attr: { href:'./directorDetails.html?id=' + Id }">
+                      <i class="icon-eye" title="Selecione para ver detalhes"></i>
+                    </a>
+                    <button class="favs-btn">
+                      <i class="icon-heart-empty" data-bind="attr : { 'id': 'favourite_'+Id }"
+                        title="Selecione para adicionar aos favoritos"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>&copy; 2020</footer>
+
+    <div class="modal">
+      <div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/DirectorsViewModel.js"></script>
+</body>
+
+</html>
