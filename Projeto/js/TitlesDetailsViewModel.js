@@ -21,7 +21,6 @@ var vm = function () {
   self.activate = function (id) {
     var composedUri = self.baseUri() + id;
     ajaxHelper(composedUri, "GET").done(function (data) {
-      console.log(data);
       self.id(data.Id);
       self.name(data.Name);
       self.dateAdded(data.DateAdded);
@@ -43,9 +42,7 @@ var vm = function () {
         dataType: "jsonp",
         contentType: "application/json",
         success: function (data) {
-          console.log(data);
           self.poster(data.Poster);
-          console.log(self.poster());
           hideLoading();
         },
         error: function (jqXHR, textStatus, errorThrown) {

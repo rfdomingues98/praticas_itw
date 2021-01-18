@@ -56,13 +56,15 @@
           </p>
           <div class="row align-items-center">
             <div class="col-md-6 mr-lg-auto">
-              <form class="search-form">
+              <form data-bind="submit: search" class="search-form">
                 <input class="search-box" type="text" placeholder="Search..." required>
-                <button class="search-btn" value="Search"><i class="icon-search" aria-hidden="true"></i></button>
+                <button class="search-btn" type="submit" value="Search"><i class="icon-search"
+                    aria-hidden="true"></i></button>
               </form>
             </div>
             <div class="col-md-6 ml-lg-auto">
               <ul class="pagination">
+                <!-- ko if: totalPages() > 1 -->
                 <!-- ko if: currentPage() > 3 && totalPages() > 6 -->
                 <li><a title="First Page" data-bind="attr: { href: './titles.html?page=' + '1',  rel:'prev'}"><i
                       class="icon-angle-double-left" aria-hidden="true"></i></a>
@@ -88,35 +90,104 @@
                 <li><a title="Last Page" data-bind="attr: { href: './titles.html?page=' + totalPages() }"><i
                       class="icon-angle-double-right" aria-hidden="true"></i></a></li>
                 <!-- /ko -->
+                <!-- /ko -->
               </ul>
             </div>
           </div>
           <div style="overflow-x: auto;">
-            <table class="styled-table" width="1000">
-              <thead>
-                <tr>
-                  <th width="150" style="text-align: left;">ID</th>
-                  <th style="text-align: left;">Name</th>
-                  <th style="text-align: right;">Options</th>
-                </tr>
-              </thead>
-              <tbody data-bind="foreach: titles">
-                <tr>
-                  <td data-bind="text:Id"></td>
-                  <td><a class="detils-btn" data-bind="text:Name,attr: { href:'./titleDetails.html?id=' + Id }">
-                    </a></td>
-                  <td style="text-align: right;">
-                    <a class="detils-btn no-decoration" data-bind="attr: { href:'./titleDetails.html?id=' + Id }">
-                      <i class="icon-eye" title="Selecione para ver detalhes"></i>
-                    </a>
-                    <button class="favs-btn">
-                      <i class="icon-heart-empty" data-bind="attr : { 'id': 'favourite_'+Id }"
-                        title="Selecione para adicionar aos favoritos"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="filters">
+
+                  <div class="row">
+                    <div class="col-12">
+                      <h4>Filters</h4>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-10">
+                      <label for="last">Last added</label>
+                    </div>
+                    <div class="col-md-2">
+                      <input id="last" value="last" name="filter" type="radio">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-10">
+                      <label for="movies">Movies</label>
+                    </div>
+                    <div class="col-md-2">
+                      <input id="movies" value="movies" name="filter" type="radio">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-10">
+                      <label for="series">Series</label>
+                    </div>
+                    <div class="col-md-2">
+                      <input id="series" value="series" name="filter" type="radio">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-10">
+                      <label for="categories">Categories</label>
+                    </div>
+                    <div class="col-md-2">
+                      <input id="categories" value="categories" name="filter" type="radio">
+                    </div>
+                  </div>
+                  <div class="categoriesTab">
+                    <!-- ko foreach: categories -->
+                    <div class="row">
+                      <div class="col-md-10">
+                        <label data-bind="text: Name + ' ('+ Titles + ')', attr: {for: Id}"></label>
+                      </div>
+                      <div class="col-md-2">
+                        <input name="filter" class="categories" type="checkbox" data-bind="attr: {id: Id, value: Id}"
+                          disabled>
+                      </div>
+                    </div>
+                    <!-- /ko -->
+                  </div>
+                  <div class="row d-flex justify-content-center mt-3">
+                    <div class="col-md-6 text-center">
+                      <button onclick="applyFilters()">Apply filters</button>
+                    </div>
+                    <div class="col-md-6 text-center">
+                      <button onclick="resetFilters()">Reset filters</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-9">
+                <table class="styled-table" width="1000">
+                  <thead>
+                    <tr>
+                      <th width="150" style="text-align: left;">ID</th>
+                      <th style="text-align: left;">Name</th>
+                      <th style="text-align: right;">Options</th>
+                    </tr>
+                  </thead>
+                  <tbody data-bind="foreach: titles">
+                    <tr>
+                      <td data-bind="text:Id"></td>
+                      <td><a class="detils-btn" data-bind="text:Name,attr: { href:'./titleDetails.html?id=' + Id }">
+                        </a></td>
+                      <td style="text-align: right;">
+                        <a class="detils-btn no-decoration" data-bind="attr: { href:'./titleDetails.html?id=' + Id }">
+                          <i class="icon-eye" title="Selecione para ver detalhes"></i>
+                        </a>
+                        <button class="favs-btn">
+                          <i class="icon-heart-empty" data-bind="attr : { 'id': 'favourite_'+Id }"
+                            title="Selecione para adicionar aos favoritos"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

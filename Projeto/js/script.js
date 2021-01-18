@@ -31,30 +31,49 @@ $(document).ready(function () {
     $(".navbar").removeClass("hiding");
   }
 
-  $(".theme-changer").click(changeTheme);
+  $(".theme-changer").click(function () {
+    localStorage.setItem(
+      "theme",
+      localStorage.getItem("theme") == "dark" ? "light" : "dark"
+    );
+    changeTheme();
+  });
 });
 
 function changeTheme() {
-  $(".theme-changer i").toggleClass("icon-sun");
-  $(".theme-changer i").toggleClass("icon-moon");
-  $(":root").css(
-    "--primary",
-    $(":root").css("--primary") === "#6df3fd" ? "#920c02" : "#6df3fd"
-  );
-  $(":root").css(
-    "--primary-lighter",
-    $(":root").css("--primary-lighter") === "#87f7ff" ? "#780800" : "#87f7ff"
-  );
-  $(":root").css(
-    "--bg-color",
-    $(":root").css("--bg-color") === "#131a47" ? "#ece5b8" : "#131a47"
-  );
-  $(":root").css(
-    "--bg-top-color",
-    $(":root").css("--bg-top-color") === "#202a6d" ? "#dfd592" : "#202a6d"
-  );
-  $(":root").css(
-    "--scrollbar-bg",
-    $(":root").css("--scrollbar-bg") === "#0d1130" ? "#f2eecf" : "#0d1130"
-  );
+  this.lightTheme = [
+    "#920c02",
+    "#780800",
+    "#ece5b8",
+    "#dfd592",
+    "#f2eecf",
+    "#e5dca5",
+    "#dbd08a",
+  ];
+  this.darkTheme = [
+    "#6df3fd",
+    "#87f7ff",
+    "#131a47",
+    "#202a6d",
+    "#0d1130",
+    "#1a235a",
+    "#242f75",
+  ];
+  var theme = localStorage.getItem("theme");
+  if (!theme) localStorage.setItem("theme", "dark");
+  $(":root").css("--primary", this[theme + "Theme"][0]);
+  $(":root").css("--primary-lighter", this[theme + "Theme"][1]);
+  $(":root").css("--bg-color", this[theme + "Theme"][2]);
+  $(":root").css("--bg-top-color", this[theme + "Theme"][3]);
+  $(":root").css("--scrollbar-bg", this[theme + "Theme"][4]);
+  $(":root").css("--bg-color-lighter", this[theme + "Theme"][5]);
+  $(":root").css("--bg-top-color-lighter", this[theme + "Theme"][6]);
+
+  if (theme == "dark") {
+    $(".theme-changer i").addClass("icon-sun");
+    $(".theme-changer i").removeClass("icon-moon");
+  } else {
+    $(".theme-changer i").addClass("icon-moon");
+    $(".theme-changer i").removeClass("icon-sun");
+  }
 }
