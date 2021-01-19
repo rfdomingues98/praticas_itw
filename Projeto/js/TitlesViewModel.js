@@ -36,7 +36,9 @@ var vm = function () {
   self.totalTitles = ko.observable(1);
   self.totalPages = ko.observable(1);
   self.currentPage = ko.observable(1);
-  self.pageSize = ko.observable(20);
+  self.pageSize = ko.observable(localStorage.getItem("pageSize") || 25);
+  self.pageSizeList = ko.observableArray([10, 25, 50]);
+  localStorage.setItem("pageSize", self.pageSize());
   self.hasPrevious = ko.observable(false);
   self.hasNext = ko.observable(false);
   self.titles = ko.observableArray([]);
@@ -69,6 +71,16 @@ var vm = function () {
     return Math.min(self.currentPage() * self.pageSize(), self.totalTitles());
   }, self);
 
+  self.search = function () {
+    window.location.replace(
+      updateQueryStringParameter(
+        window.location.href,
+        "name",
+        encodeURIComponent($(".search-box").val())
+      )
+    );
+  };
+
   self.activate = function (id) {
     if (
       (getUrlParameter("movies") && getUrlParameter("name")) ||
@@ -78,18 +90,15 @@ var vm = function () {
     else
       var composedUri =
         self.baseUri() + "&page=" + id + "&pageSize=" + self.pageSize();
-    console.log(composedUri);
     ajaxHelper(composedUri, "GET").done(function (data) {
       hideLoading();
-      console.log(data);
       if (
         (getUrlParameter("movies") && getUrlParameter("name")) ||
         (getUrlParameter("series") && getUrlParameter("name"))
       ) {
         self.titles(data);
         self.totalTitles(data.length);
-
-        var totalPages = Math.min(data.length / self.pageSize(), 1);
+        var totalPages = Math.max(data.length / self.pageSize(), 1);
         self.totalPages(totalPages);
       } else {
         self.titles(data.Titles);
@@ -126,15 +135,6 @@ var vm = function () {
       }
     });
   };
-  self.search = function () {
-    window.location.replace(
-      updateQueryStringParameter(
-        window.location.href,
-        "name",
-        $(".search-box").val()
-      )
-    );
-  };
 
   function ajaxHelper(uri, method, data) {
     self.error("");
@@ -151,6 +151,15 @@ var vm = function () {
       },
     });
   }
+
+  var triggerChange = 0;
+  $("#pageSize").on("change", function () {
+    if (triggerChange == 1) {
+      localStorage.setItem("pageSize", $("#pageSize").val());
+      window.location.reload();
+    }
+    triggerChange = 1;
+  });
 
   function showLoading() {
     $(".modal").css("display", "block");
@@ -221,58 +230,6 @@ $(document).ready(function () {
     }
   });
 });
-
-function getUrlParameter(sParam) {
-  var sPageURL = window.location.search.substring(1),
-    sURLVariables = sPageURL.split("&"),
-    sParameterName,
-    i;
-
-  for (i = 0; i < sURLVariables.length; i++) {
-    sParameterName = sURLVariables[i].split("=");
-
-    if (sParameterName[0] === sParam) {
-      return sParameterName[1] === undefined
-        ? true
-        : decodeURIComponent(sParameterName[1]);
-    }
-  }
-}
-
-function updateQueryStringParameter(uri, key, value) {
-  if (typeof value == "object") {
-    value.join(",");
-  }
-  var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-  var separator = uri.indexOf("?") !== -1 ? "&" : "?";
-  if (uri.match(re)) {
-    return uri.replace(re, "$1" + key + "=" + value + "$2");
-  } else {
-    return uri + separator + key + "=" + value;
-  }
-}
-
-function removeQueryStringParameters(uri, ignore) {
-  var oldURL = uri;
-  var index = 0;
-  var newURL = oldURL;
-  index = oldURL.indexOf("?");
-  if (index == -1) {
-    index = oldURL.indexOf("#");
-  }
-  if (index != -1) {
-    newURL = oldURL.substring(0, index);
-    if (ignore) {
-      var params = oldURL.substring(index).split("&");
-      params.forEach(function (e) {
-        if (e.split("=")[0] == ignore) {
-          newURL += "?" + ignore + "=" + e.split("=")[1];
-        }
-      });
-    }
-  }
-  return newURL;
-}
 
 function resetFilters() {
   $("input[name=filter]").prop("checked", false);

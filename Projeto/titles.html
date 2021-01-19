@@ -14,6 +14,7 @@
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="msapplication-config" content="img/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap-grid.min.css">
   <link rel="stylesheet" href="css/style.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
 </head>
@@ -42,6 +43,15 @@
       <li>
         <a href="actors.html" class="nav-links">Actors</a>
       </li>
+      <li>
+        <a href="categories.html" class="nav-links">Categories</a>
+      </li>
+      <li>
+        <a href="countries.html" class="nav-links">Countries</a>
+      </li>
+      <li>
+        <a href="ratings.html" class="nav-links">Ratings</a>
+      </li>
     </ul>
   </nav>
 
@@ -55,14 +65,18 @@
             <span data-bind="html: 'Titles: '+ fromRecord() + '-' + toRecord() + ' of ' + totalTitles()"></span>
           </p>
           <div class="row align-items-center">
-            <div class="col-md-6 mr-lg-auto">
+            <div class="col-md-3 d-flex justify-content-center justify-content-md-start mt-3 mt-md-0">
               <form data-bind="submit: search" class="search-form">
                 <input class="search-box" type="text" placeholder="Search..." required>
                 <button class="search-btn" type="submit" value="Search"><i class="icon-search"
                     aria-hidden="true"></i></button>
               </form>
             </div>
-            <div class="col-md-6 ml-lg-auto">
+            <div class="col-md-3 d-flex justify-content-center align-items-center mt-3 mt-md-0 selectdiv">
+              <label class="mr-2" for="pageSize">Per page:</label>
+              <select id="pageSize" data-bind="options: pageSizeList, value: pageSize"></select>
+            </div>
+            <div class="col-md-6 d-flex justify-content-center justify-content-md-end mt-3 mt-md-0">
               <ul class="pagination">
                 <!-- ko if: totalPages() > 1 -->
                 <!-- ko if: currentPage() > 3 && totalPages() > 6 -->
@@ -94,9 +108,9 @@
               </ul>
             </div>
           </div>
-          <div style="overflow-x: auto;">
+          <div>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-6 col-lg-5 col-xl-4">
                 <div class="filters">
 
                   <div class="row">
@@ -105,86 +119,85 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-10">
                       <label for="last">Last added</label>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-2">
                       <input id="last" value="last" name="filter" type="radio">
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-10">
                       <label for="movies">Movies</label>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-2">
                       <input id="movies" value="movies" name="filter" type="radio">
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-10">
                       <label for="series">Series</label>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-2">
                       <input id="series" value="series" name="filter" type="radio">
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-10">
                       <label for="categories">Categories</label>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-2">
                       <input id="categories" value="categories" name="filter" type="radio">
                     </div>
                   </div>
                   <div class="categoriesTab">
                     <!-- ko foreach: categories -->
                     <div class="row">
-                      <div class="col-md-10">
+                      <div class="col-10">
                         <label data-bind="text: Name + ' ('+ Titles + ')', attr: {for: Id}"></label>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-2">
                         <input name="filter" class="categories" type="checkbox" data-bind="attr: {id: Id, value: Id}"
                           disabled>
                       </div>
                     </div>
                     <!-- /ko -->
                   </div>
-                  <div class="row d-flex justify-content-center mt-3">
-                    <div class="col-md-6 text-center">
+                  <div class="row text-center mt-3">
+                    <div class="col-6">
                       <button onclick="applyFilters()">Apply filters</button>
                     </div>
-                    <div class="col-md-6 text-center">
+                    <div class="col-6">
                       <button onclick="resetFilters()">Reset filters</button>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-9">
-                <table class="styled-table" width="1000">
-                  <thead>
-                    <tr>
-                      <th width="150" style="text-align: left;">ID</th>
-                      <th style="text-align: left;">Name</th>
-                      <th style="text-align: right;">Options</th>
-                    </tr>
-                  </thead>
-                  <tbody data-bind="foreach: titles">
-                    <tr>
-                      <td data-bind="text:Id"></td>
-                      <td><a class="detils-btn" data-bind="text:Name,attr: { href:'./titleDetails.html?id=' + Id }">
-                        </a></td>
-                      <td style="text-align: right;">
-                        <a class="detils-btn no-decoration" data-bind="attr: { href:'./titleDetails.html?id=' + Id }">
-                          <i class="icon-eye" title="Selecione para ver detalhes"></i>
-                        </a>
-                        <button class="favs-btn">
-                          <i class="icon-heart-empty" data-bind="attr : { 'id': 'favourite_'+Id }"
-                            title="Selecione para adicionar aos favoritos"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="col-md-6 col-lg-7 col-xl-8">
+                <div style="overflow-x: scroll">
+
+                  <table class="styled-table table-responsive" style="overflow-x:scroll;">
+                    <thead>
+                      <tr>
+                        <th width="150" style="text-align: left;">ID</th>
+                        <th style="text-align: left;">Name</th>
+                        <th style="text-align: right;">Options</th>
+                      </tr>
+                    </thead>
+                    <tbody data-bind="foreach: titles">
+                      <tr>
+                        <td data-bind="text:Id"></td>
+                        <td><a class="detils-btn" data-bind="text:Name,attr: { href:'./titleDetails.html?id=' + Id }">
+                          </a></td>
+                        <td style="text-align: right;">
+                          <a class="detils-btn no-decoration" data-bind="attr: { href:'./titleDetails.html?id=' + Id }">
+                            <i class="icon-eye" title="Selecione para ver detalhes"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
 

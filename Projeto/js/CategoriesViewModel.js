@@ -1,12 +1,20 @@
 var vm = function () {
   var self = this;
   self.baseUri = ko.observable("http://192.168.160.58/netflix/api/categories");
+  if (getUrlParameter("name")) {
+    self.baseUri(
+      "http://192.168.160.58/netflix/api/search/categories?name=" +
+        getUrlParameter("name")
+    );
+  }
   self.displayName = "Categories";
   self.error = ko.observable("");
   self.totalCategories = ko.observable(1);
   self.totalPages = ko.observable(1);
   self.currentPage = ko.observable(1);
-  self.pageSize = ko.observable(20);
+  self.pageSize = ko.observable(localStorage.getItem("pageSize") || 25);
+  self.pageSizeList = ko.observableArray([10, 25, 50]);
+  localStorage.setItem("pageSize", self.pageSize());
   self.hasPrevious = ko.observable(false);
   self.hasNext = ko.observable(false);
   self.categories = ko.observableArray([]);
@@ -41,19 +49,39 @@ var vm = function () {
     );
   }, self);
 
+  self.search = function () {
+    window.location.replace(
+      updateQueryStringParameter(
+        window.location.href,
+        "name",
+        encodeURIComponent($(".search-box").val())
+      )
+    );
+  };
+
   self.activate = function (id) {
-    var composedUri =
-      self.baseUri() + "?page=" + id + "&pageSize=" + self.pageSize();
+    if (getUrlParameter("name")) {
+      var composedUri = self.baseUri();
+    } else {
+      var composedUri =
+        self.baseUri() + "?page=" + id + "&pageSize=" + self.pageSize();
+    }
     ajaxHelper(composedUri, "GET").done(function (data) {
       hideLoading();
-      self.categories(data.Categories);
-      self.currentPage(data.CurrentPage);
-      self.hasNext(data.HasNext);
-      self.hasPrevious(data.HasPrevious);
-      self.pageSize(data.PageSize);
-      self.totalPages(data.TotalPages);
-      self.totalCategories(data.TotalCategories);
-      //self.SetFavourites();
+      if (getUrlParameter("name")) {
+        self.categories(data);
+        self.totalCategories(data.length);
+        var totalPages = Math.max(data.length / self.pageSize(), 1);
+        self.totalPages(totalPages);
+      } else {
+        self.categories(data.Categories);
+        self.currentPage(data.CurrentPage);
+        self.hasNext(data.HasNext);
+        self.hasPrevious(data.HasPrevious);
+        self.pageSize(data.PageSize);
+        self.totalPages(data.TotalPages);
+        self.totalCategories(data.TotalCategories);
+      }
     });
   };
 
@@ -73,28 +101,20 @@ var vm = function () {
     });
   }
 
+  var triggerChange = 0;
+  $("#pageSize").on("change", function () {
+    if (triggerChange == 1) {
+      localStorage.setItem("pageSize", $("#pageSize").val());
+      window.location.reload();
+    }
+    triggerChange = 1;
+  });
+
   function showLoading() {
     $(".modal").css("display", "block");
   }
   function hideLoading() {
     $(".modal").css("display", "none");
-  }
-
-  function getUrlParameter(sParam) {
-    var sPageURL = window.location.search.substring(1),
-      sURLVariables = sPageURL.split("&"),
-      sParameterName,
-      i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-      sParameterName = sURLVariables[i].split("=");
-
-      if (sParameterName[0] === sParam) {
-        return sParameterName[1] === undefined
-          ? true
-          : decodeURIComponent(sParameterName[1]);
-      }
-    }
   }
 
   showLoading();
@@ -107,4 +127,40 @@ var vm = function () {
 
 $(document).ready(function () {
   ko.applyBindings(new vm());
+
+  $(".search-box").autocomplete({
+    source: function (request, response) {
+      $.ajax({
+        url: `http://192.168.160.58/netflix/api/Search/categories?name=${encodeURIComponent(
+          $(".search-box").val()
+        )}`,
+        dataType: "json",
+        data: {
+          term: request.term,
+        },
+        success: function (data) {
+          response(
+            $.map(data, function (value, key) {
+              return {
+                value: value.Name,
+                id: value.Id,
+              };
+            })
+          );
+        },
+      });
+    },
+    messages: {
+      noResults: "",
+      results: function () {
+        return;
+      },
+    },
+    minLength: 2,
+    select: function (event, ui) {
+      window.location.href = window.location.origin.concat(
+        `/categoryDetails.html?id=${ui.item.id}`
+      );
+    },
+  });
 });

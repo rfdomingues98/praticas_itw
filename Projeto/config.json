@@ -119,6 +119,12 @@
       "css": "address-book",
       "code": 62137,
       "src": "fontawesome"
+    },
+    {
+      "uid": "a3f89e106175a5c5c4e9738870b12e55",
+      "css": "tags",
+      "code": 59405,
+      "src": "fontawesome"
     }
   ]
 }
