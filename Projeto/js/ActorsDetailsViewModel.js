@@ -10,7 +10,6 @@ var vm = function () {
   self.activate = function (id) {
     var composedUri = self.baseUri() + id;
     ajaxHelper(composedUri, "GET").done(function (data) {
-      console.log(data);
       self.id(data.Id);
       self.name(data.Name);
       self.titles(data.Titles);
