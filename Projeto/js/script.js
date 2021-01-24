@@ -2,7 +2,7 @@ $(document).ready(function () {
   changeTheme();
   $(document).on("click", ".slide-down", function () {
     $([document.documentElement, document.body]).animate({
-      scrollTop: $("main").offset().top,
+      scrollTop: $("main").offset().top - 80,
     });
   });
   $(document).on("click", ".navbar-toggle", function () {
@@ -50,6 +50,44 @@ function changeTheme() {
     "#e5dca5",
     "#dbd08a",
   ];
+  this.barChartLightBg = [
+    "rgba(109,243,253,0.8)",
+    "rgba(104,250,233,0.8)",
+    "rgba(125,254,205,0.8)",
+    "rgba(161,255,172,0.8)",
+    "rgba(203,254,139,0.8)",
+  ];
+  this.barChartLightBorder = [
+    "rgba(109,243,253,1)",
+    "rgba(104,250,233,1)",
+    "rgba(125,254,205,1)",
+    "rgba(161,255,172,1)",
+    "rgba(203,254,139,1)",
+  ];
+  this.barChartDarkBg = [
+    "rgba(146,12,2,0.8)",
+    "rgba(189,59,35,0.8)",
+    "rgba(233,97,67,0.8)",
+    "rgba(255,135,101,0.8)",
+    "rgba(255,173,137,0.8)",
+  ];
+  this.barChartDarkBorder = [
+    "rgba(146,12,2,1)",
+    "rgba(189,59,35,1)",
+    "rgba(233,97,67,1)",
+    "rgba(255,135,101,1)",
+    "rgba(255,173,137,1)",
+  ];
+  this.doughnutChartLightBg = [
+    "rgba(109,243,253,0.8)",
+    "rgba(203,254,139,0.8)",
+  ];
+  this.doughnutChartLightBorder = [
+    "rgba(109,243,253,1)",
+    "rgba(203,254,139,1)",
+  ];
+  this.doughnutChartDarkBg = ["rgba(146,12,2,0.8)", "rgba(255,173,137,0.8)"];
+  this.doughnutChartDarkBorder = ["rgba(146,12,2,1)", "rgba(255,173,137,1)"];
   this.darkTheme = [
     "#6df3fd",
     "#87f7ff",
@@ -72,9 +110,39 @@ function changeTheme() {
   if (theme == "dark") {
     $(".theme-changer i").addClass("icon-sun");
     $(".theme-changer i").removeClass("icon-moon");
+    if (typeof chart1 !== "undefined") {
+      chart1.data.datasets[0].backgroundColor = this.barChartLightBg;
+      chart1.data.datasets[0].borderColor = this.barChartLightBorder;
+      chart1.options.scales.xAxes[0].ticks.minor.fontColor = this.barChartLightBorder[0];
+      chart1.options.scales.yAxes[0].ticks.minor.fontColor = this.barChartLightBorder[0];
+      chart1.options.scales.xAxes[0].gridLines.color = this.barChartLightBorder[0];
+      chart1.options.scales.yAxes[0].gridLines.color = this.barChartLightBorder[0];
+      chart1.update();
+    }
+    if (typeof chart2 !== "undefined") {
+      chart2.data.datasets[0].backgroundColor = this.doughnutChartLightBg;
+      chart2.data.datasets[0].borderColor = this.doughnutChartLightBorder;
+      chart2.options.legend.labels.fontColor = this.doughnutChartLightBorder[0];
+      chart2.update();
+    }
   } else {
     $(".theme-changer i").addClass("icon-moon");
     $(".theme-changer i").removeClass("icon-sun");
+    if (typeof chart1 !== "undefined") {
+      chart1.data.datasets[0].backgroundColor = this.barChartDarkBg;
+      chart1.data.datasets[0].borderColor = this.barChartDarkBorder;
+      chart1.options.scales.xAxes[0].ticks.minor.fontColor = this.barChartDarkBorder[0];
+      chart1.options.scales.yAxes[0].ticks.minor.fontColor = this.barChartDarkBorder[0];
+      chart1.options.scales.xAxes[0].gridLines.color = this.barChartDarkBorder[0];
+      chart1.options.scales.yAxes[0].gridLines.color = this.barChartDarkBorder[0];
+      chart1.update();
+    }
+    if (typeof chart2 !== "undefined") {
+      chart2.data.datasets[0].backgroundColor = this.doughnutChartDarkBg;
+      chart2.data.datasets[0].borderColor = this.doughnutChartDarkBorder;
+      chart2.options.legend.labels.fontColor = this.doughnutChartDarkBorder[0];
+      chart2.update();
+    }
   }
 }
 
@@ -129,3 +197,14 @@ function removeQueryStringParameters(uri, ignore) {
   }
   return newURL;
 }
+
+$(".filterToggle").click(function () {
+  $(".filter-wnd").toggle();
+});
+
+// function toggleFavorite(e) {
+//   var titleId = e.id.slice(e.id.indexOf("_") + 1);
+//   var favorites = JSON.parse(localStorage.getItem("favorites"));
+//   favorites.push(titleId);
+//   localStorage.setItem("favorites", JSON.stringify(favorites));
+// }

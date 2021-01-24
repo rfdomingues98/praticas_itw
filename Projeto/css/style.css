@@ -45,6 +45,10 @@ a:hover {
   color: var(--primary-lighter);
 }
 
+.details-btn {
+  color: var(--primary);
+}
+
 .no-decoration {
   text-decoration: none;
 }
@@ -216,7 +220,7 @@ header {
 }
 
 .navbar {
-  z-index: 2;
+  z-index: 999999;
   background-color: var(--bg-color);
   border-bottom: 1px solid var(--bg-top-color);
 }
@@ -229,6 +233,7 @@ header {
 .nav-links {
   text-decoration: none;
   color: var(--primary);
+  cursor: pointer;
 }
 
 .main-nav li {
@@ -246,6 +251,10 @@ header {
 
 .menu-active {
   display: block;
+}
+
+.dropdown-btn {
+  display: none;
 }
 
 @media screen and (min-width: 992px) {
@@ -271,7 +280,7 @@ header {
     margin: 0;
   }
 
-  .nav-links {
+  :not(.dropdown-link)>.nav-links {
     margin-left: 40px;
   }
 
@@ -279,7 +288,7 @@ header {
     display: none;
   }
 
-  .nav-links::before {
+  :not(.dropdown-link)>.nav-links::before {
     transition: 200ms;
     content: "";
     height: 3px;
@@ -298,6 +307,39 @@ header {
     transition: 100ms;
     opacity: 0;
     transform: translateY(20px);
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--bg-color-lighter);
+    color: var(--primary);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    right: 10px;
+  }
+
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    padding: 12px 16px;
+    display: flex;
+    width: 100%;
+  }
+
+  /* Add a grey background color to dropdown links on hover */
+  .dropdown-content a:hover {
+    background-color: var(--bg-top-color-lighter);
+  }
+
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dropdown-btn {
+    display: block;
   }
 }
 
@@ -407,7 +449,7 @@ header {
   pointer-events: none;
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .selectdiv:after {
     content: '\203A';
     transform: rotate(90deg);
@@ -686,19 +728,19 @@ footer {
   width: 1170px;
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .container {
     width: 750px;
   }
 }
 
-@media (min-width: 992px) {
+@media screen and (min-width: 992px) {
   .container {
     width: 970px;
   }
 }
 
-@media (min-width: 1200px) {
+@media screen and (min-width: 1200px) {
   .container {
     width: 1170px;
   }
@@ -800,4 +842,30 @@ footer {
   max-height: 300px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+/*! ---------- Search Filter ---------- */
+@media screen and (max-width:767px) {
+  .filter-btn {
+    display: flex;
+    justify-content: center;
+  }
+
+  .filterToggle {
+    border: 1px solid var(--primary);
+    border-radius: 50px;
+    width: 25%;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .filter-wnd {
+    overflow-x: hidden;
+    background: var(--bg-color);
+    display: none;
+    z-index: 3;
+    position: absolute;
+    width: 100%;
+    padding-bottom: 15px;
+  }
 }

@@ -18,4 +18,5 @@
 .icon-angle-left:before { content: '\f104'; } /* '' */
 .icon-angle-right:before { content: '\f105'; } /* '' */
 .icon-angle-down:before { content: '\f107'; } /* '' */
+.icon-trash:before { content: '\f1f8'; } /* '' */
 .icon-address-book:before { content: '\f2b9'; } /* '' */

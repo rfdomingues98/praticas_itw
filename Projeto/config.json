@@ -125,6 +125,12 @@
       "css": "tags",
       "code": 59405,
       "src": "fontawesome"
+    },
+    {
+      "uid": "bbfb51903f40597f0b70fd75bc7b5cac",
+      "css": "trash",
+      "code": 61944,
+      "src": "fontawesome"
     }
   ]
 }

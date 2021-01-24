@@ -43,6 +43,9 @@ var vm = function () {
   self.hasNext = ko.observable(false);
   self.titles = ko.observableArray([]);
   self.categories = ko.observableArray([]);
+  self.favorites = ko.observableArray(
+    JSON.parse(localStorage.getItem("favorites")) || []
+  );
   self.pageArray = function () {
     var list = [];
     var size = Math.min(self.totalPages(), 5);
@@ -109,7 +112,7 @@ var vm = function () {
         self.totalPages(data.TotalPages);
         self.totalTitles(data.TotalTitles);
       }
-      //self.SetFavourites();
+      self.setFavorites();
     });
     ajaxHelper(self.categoriesUri(), "GET").done(function (data) {
       self.categories(data.Categories);
@@ -151,6 +154,29 @@ var vm = function () {
       },
     });
   }
+
+  self.toggleFavorite = function () {
+    var obj = {
+      Id: this.Id,
+      Name: this.Name,
+    };
+    if (
+      self.favorites().filter(function (e) {
+        return e.Id === obj.Id;
+      }).length > 0
+    )
+      self.favorites(
+        self.favorites.remove(function (e) {
+          return e.Id !== obj.Id;
+        })
+      );
+    else self.favorites.push(obj);
+    self.setFavorites();
+  };
+
+  self.setFavorites = function () {
+    localStorage.setItem("favorites", JSON.stringify(self.favorites()));
+  };
 
   var triggerChange = 0;
   $("#pageSize").on("change", function () {

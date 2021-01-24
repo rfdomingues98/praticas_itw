@@ -43,15 +43,23 @@
       <li>
         <a href="actors.html" class="nav-links">Actors</a>
       </li>
-      <li>
-        <a href="categories.html" class="nav-links">Categories</a>
-      </li>
-      <li>
-        <a href="countries.html" class="nav-links">Countries</a>
-      </li>
-      <li>
-        <a href="ratings.html" class="nav-links">Ratings</a>
-      </li>
+      <div class="dropdown">
+        <span class="nav-links dropdown-btn">More <i class="icon-angle-down"></i></span>
+        <div class="dropdown-content">
+          <li class="dropdown-link">
+            <a href="categories.html" class="nav-links">Categories</a>
+          </li>
+          <li class="dropdown-link">
+            <a href="countries.html" class="nav-links">Countries</a>
+          </li>
+          <li class="dropdown-link">
+            <a href="ratings.html" class="nav-links">Ratings</a>
+          </li>
+          <li class="dropdown-link">
+            <a href="favorites.html" class="nav-links">Favorites</a>
+          </li>
+        </div>
+      </div>
     </ul>
   </nav>
 
@@ -65,18 +73,18 @@
             <span data-bind="html: 'Titles: '+ fromRecord() + '-' + toRecord() + ' of ' + totalTitles()"></span>
           </p>
           <div class="row align-items-center">
-            <div class="col-md-3 d-flex justify-content-center justify-content-md-start mt-3 mt-md-0">
+            <div class="col-md-4 col-lg-3 d-flex justify-content-center justify-content-md-start mt-3 mt-md-0">
               <form data-bind="submit: search" class="search-form">
                 <input class="search-box" type="text" placeholder="Search..." required>
                 <button class="search-btn" type="submit" value="Search"><i class="icon-search"
                     aria-hidden="true"></i></button>
               </form>
             </div>
-            <div class="col-md-3 d-flex justify-content-center align-items-center mt-3 mt-md-0 selectdiv">
+            <div class="col-md-4 col-lg-3 d-flex justify-content-center align-items-center mt-3 mt-md-0 selectdiv">
               <label class="mr-2" for="pageSize">Per page:</label>
               <select id="pageSize" data-bind="options: pageSizeList, value: pageSize"></select>
             </div>
-            <div class="col-md-6 d-flex justify-content-center justify-content-md-end mt-3 mt-md-0">
+            <div class="col-md-4 col-lg-6 d-flex justify-content-center justify-content-md-end mt-3 mt-md-0">
               <ul class="pagination">
                 <!-- ko if: totalPages() > 1 -->
                 <!-- ko if: currentPage() > 3 && totalPages() > 6 -->
@@ -112,63 +120,64 @@
             <div class="row">
               <div class="col-md-6 col-lg-5 col-xl-4">
                 <div class="filters">
-
                   <div class="row">
-                    <div class="col-12">
-                      <h4>Filters</h4>
+                    <div class="col-12 filter-btn">
+                      <h4 class="filterToggle">Filters</h4>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-10">
-                      <label for="last">Last added</label>
-                    </div>
-                    <div class="col-2">
-                      <input id="last" value="last" name="filter" type="radio">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-10">
-                      <label for="movies">Movies</label>
-                    </div>
-                    <div class="col-2">
-                      <input id="movies" value="movies" name="filter" type="radio">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-10">
-                      <label for="series">Series</label>
-                    </div>
-                    <div class="col-2">
-                      <input id="series" value="series" name="filter" type="radio">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-10">
-                      <label for="categories">Categories</label>
-                    </div>
-                    <div class="col-2">
-                      <input id="categories" value="categories" name="filter" type="radio">
-                    </div>
-                  </div>
-                  <div class="categoriesTab">
-                    <!-- ko foreach: categories -->
+                  <div class="filter-wnd">
                     <div class="row">
                       <div class="col-10">
-                        <label data-bind="text: Name + ' ('+ Titles + ')', attr: {for: Id}"></label>
+                        <label for="last">Last added</label>
                       </div>
                       <div class="col-2">
-                        <input name="filter" class="categories" type="checkbox" data-bind="attr: {id: Id, value: Id}"
-                          disabled>
+                        <input id="last" value="last" name="filter" type="radio">
                       </div>
                     </div>
-                    <!-- /ko -->
-                  </div>
-                  <div class="row text-center mt-3">
-                    <div class="col-6">
-                      <button onclick="applyFilters()">Apply filters</button>
+                    <div class="row">
+                      <div class="col-10">
+                        <label for="movies">Movies</label>
+                      </div>
+                      <div class="col-2">
+                        <input id="movies" value="movies" name="filter" type="radio">
+                      </div>
                     </div>
-                    <div class="col-6">
-                      <button onclick="resetFilters()">Reset filters</button>
+                    <div class="row">
+                      <div class="col-10">
+                        <label for="series">Series</label>
+                      </div>
+                      <div class="col-2">
+                        <input id="series" value="series" name="filter" type="radio">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-10">
+                        <label for="categories">Categories</label>
+                      </div>
+                      <div class="col-2">
+                        <input id="categories" value="categories" name="filter" type="radio">
+                      </div>
+                    </div>
+                    <div class="categoriesTab">
+                      <!-- ko foreach: categories -->
+                      <div class="row">
+                        <div class="col-10">
+                          <label data-bind="text: Name + ' ('+ Titles + ')', attr: {for: Id}"></label>
+                        </div>
+                        <div class="col-2">
+                          <input name="filter" class="categories" type="checkbox" data-bind="attr: {id: Id, value: Id}"
+                            disabled>
+                        </div>
+                      </div>
+                      <!-- /ko -->
+                    </div>
+                    <div class="row text-center mt-3">
+                      <div class="col-6">
+                        <button onclick="applyFilters()">Apply filters</button>
+                      </div>
+                      <div class="col-6">
+                        <button onclick="resetFilters()">Reset filters</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -193,6 +202,15 @@
                           <a class="detils-btn no-decoration" data-bind="attr: { href:'./titleDetails.html?id=' + Id }">
                             <i class="icon-eye" title="Selecione para ver detalhes"></i>
                           </a>
+                          <button class="btn btn-sm details-btn no-decoration"
+                            data-bind=" click: $parent.toggleFavorite">
+                            <!-- ko ifnot: $parent.favorites().filter(function(e){ return e.Id === Id}).length > 0 -->
+                            <i class="icon-heart-empty" title="Selecione para adicionar aos favoritos"></i>
+                            <!-- /ko-->
+                            <!-- ko if: $parent.favorites().filter(function(e){ return e.Id === Id}).length > 0 -->
+                            <i class="icon-heart" title="Selecione para adicionar aos favoritos"></i>
+                            <!-- /ko-->
+                          </button>
                         </td>
                       </tr>
                     </tbody>
@@ -200,7 +218,6 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>

@@ -43,15 +43,23 @@
       <li>
         <a href="actors.html" class="nav-links">Actors</a>
       </li>
-      <li>
-        <a href="categories.html" class="nav-links">Categories</a>
-      </li>
-      <li>
-        <a href="countries.html" class="nav-links">Countries</a>
-      </li>
-      <li>
-        <a href="ratings.html" class="nav-links">Ratings</a>
-      </li>
+      <div class="dropdown">
+        <span class="nav-links dropdown-btn">More <i class="icon-angle-down"></i></span>
+        <div class="dropdown-content">
+          <li class="dropdown-link">
+            <a href="categories.html" class="nav-links">Categories</a>
+          </li>
+          <li class="dropdown-link">
+            <a href="countries.html" class="nav-links">Countries</a>
+          </li>
+          <li class="dropdown-link">
+            <a href="ratings.html" class="nav-links">Ratings</a>
+          </li>
+          <li class="dropdown-link">
+            <a href="favorites.html" class="nav-links">Favorites</a>
+          </li>
+        </div>
+      </div>
     </ul>
   </nav>
 
@@ -66,18 +74,6 @@
   <main id="main">
     <section id="pages">
       <div class="container">
-        <div class="row">
-          <div class="col-12 text-center">
-            <span>We currently hold data of:</span>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-12 text-center">
-            <span><span data-bind="text: titles"></span> Titles | <span data-bind="text: directors"></span> Directors |
-              <span data-bind="text: actors"></span> Actors | <span data-bind="text: categories"></span> Categories |
-              <span data-bind="text: countries"></span> Countries</span>
-          </div>
-        </div>
         <div class="row">
           <div class="col-md-4">
             <a class="no-decoration" href="titles.html">
@@ -115,7 +111,7 @@
               </div>
             </a>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <a class="no-decoration" href="categories.html">
               <div class="card d-flex align-items-center">
                 <div class="card-description">
@@ -127,7 +123,7 @@
               </div>
             </a>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <a class="no-decoration" href="countries.html">
               <div class="card d-flex align-items-center">
                 <div class="card-description">
@@ -139,7 +135,7 @@
               </div>
             </a>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <a class="no-decoration" href="ratings.html">
               <div class="card d-flex align-items-center">
                 <div class="card-description">
@@ -150,6 +146,33 @@
                 </div>
               </div>
             </a>
+          </div>
+          <div class="col-md-6">
+            <a class="no-decoration" href="favorites.html">
+              <div class="card d-flex align-items-center">
+                <div class="card-description">
+                  <h1>Favorites</h1>
+                </div>
+                <div class="card-img">
+                  <i class="icon-3x icon-heart"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="row my-5">
+          <div class="col-12 text-center">
+            <span>Current Statistics</span>
+          </div>
+          <div class="col-md-6 mt-5">
+            <div class="box columnbox">
+              <canvas id="chart1"></canvas>
+            </div>
+          </div>
+          <div class="col-md-6 mt-5">
+            <div class="box piechart">
+              <canvas id="chart2"></canvas>
+            </div>
           </div>
         </div>
       </div>
@@ -167,8 +190,11 @@
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-  <script src="js/script.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="js/StatisticsViewModel.js"></script>
+  <script src="js/script.js"></script>
 </body>
 
 </html>
